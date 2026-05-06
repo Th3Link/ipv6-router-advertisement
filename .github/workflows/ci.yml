@@ -30,10 +30,13 @@ jobs:
 
     strategy:
       matrix:
-        rust:
-          - "1.82"     # MSRV
-          - "stable"
-          - "nightly"
+        include:
+          - rust: "1.82"     # MSRV
+          - rust: "stable"
+          - rust: "nightly"
+            allow_failure: true
+
+    continue-on-error: ${{ matrix.allow_failure == true }}
 
     steps:
       - uses: actions/checkout@v6
@@ -51,3 +54,18 @@ jobs:
 
       - name: Test
         run: cargo test --all-features
+
+      - name: Install cargo-llvm-cov
+        if: matrix.rust == 'stable'
+        uses: taiki-e/install-action@cargo-llvm-cov
+
+      - name: Generate coverage
+        if: matrix.rust == 'stable'
+        run: cargo llvm-cov --all-features --workspace --lcov --output-path lcov.info
+
+      - name: Upload to Codecov
+        if: matrix.rust == 'stable'
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: lcov.info

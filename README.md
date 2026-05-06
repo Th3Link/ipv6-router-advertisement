@@ -1,6 +1,7 @@
 # IPv6 Router Advertisement Processing for Rust
 
 ![CI](https://github.com/Th3Link/ipv6-router-advertisement/actions/workflows/ci.yml/badge.svg)
+[![codecov](https://codecov.io/github/Th3Link/ipv6-router-advertisement/graph/badge.svg?token=V8BZJN0GJK)](https://codecov.io/github/Th3Link/ipv6-router-advertisement)
 [![Crates.io](https://img.shields.io/crates/v/ipv6-router-advertisement.svg)](https://crates.io/crates/ipv6-router-advertisement)
 [![Documentation](https://docs.rs/ipv6-router-advertisement/badge.svg)](https://docs.rs/ipv6-router-advertisement)
 [![Downloads](https://img.shields.io/crates/d/ipv6-router-advertisement.svg)](https://crates.io/crates/ipv6-router-advertisement)
