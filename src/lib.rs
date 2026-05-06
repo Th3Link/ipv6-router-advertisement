@@ -18,8 +18,8 @@ use aggregator::Aggregator;
 use detector::detect;
 use futures::StreamExt;
 use futures::{
-    Stream,
     future::{AbortHandle, Abortable},
+    Stream,
 };
 use icmpv6_socket::{Icmpv6Socket, RealIcmpv6Socket};
 use lifecycle::Lifecycle;
@@ -29,7 +29,7 @@ use std::collections::HashMap;
 use std::net::Ipv6Addr;
 use std::sync::Arc;
 use tokio::sync::mpsc;
-use tokio::time::{Duration, Instant, sleep_until};
+use tokio::time::{sleep_until, Duration, Instant};
 use tokio_stream::wrappers::ReceiverStream;
 use tracing::debug;
 
@@ -560,11 +560,9 @@ mod tests {
         let aggregated = aggregator.process(expired);
         println!("aggregated: {aggregated:?}");
 
-        anyhow::ensure!(
-            aggregated
-                .iter()
-                .any(|e| matches!(e, Event::RouterDown { ifindex: 1 }))
-        );
+        anyhow::ensure!(aggregated
+            .iter()
+            .any(|e| matches!(e, Event::RouterDown { ifindex: 1 })));
         Ok(())
     }
 
@@ -582,11 +580,9 @@ mod tests {
 
         let aggregated = aggregator.process(events);
 
-        anyhow::ensure!(
-            aggregated
-                .iter()
-                .any(|e| matches!(e, Event::RaDns { ifindex: 1, .. }))
-        );
+        anyhow::ensure!(aggregated
+            .iter()
+            .any(|e| matches!(e, Event::RaDns { ifindex: 1, .. })));
         Ok(())
     }
 }

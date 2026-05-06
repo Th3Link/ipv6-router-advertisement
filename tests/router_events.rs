@@ -5,10 +5,10 @@ use fixtures::mock_socket::MockIcmpv6Socket;
 use fixtures::ra::{ra_minimal, ra_with_rdnss_dnssl};
 use futures::StreamExt;
 use helpers::*;
-use ipv6_router_advertisement::{Event, router_events_with_socket};
+use ipv6_router_advertisement::{router_events_with_socket, Event};
 use std::net::Ipv6Addr;
 use std::sync::Arc;
-use tokio::time::{Duration, advance};
+use tokio::time::{advance, Duration};
 
 #[tokio::test(start_paused = true)]
 async fn emits_router_up_after_ra() -> anyhow::Result<()> {

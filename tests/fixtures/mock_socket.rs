@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
-use ipv6_router_advertisement::InterfaceIndex;
 use ipv6_router_advertisement::icmpv6_socket::Icmpv6Socket;
+use ipv6_router_advertisement::InterfaceIndex;
 use std::collections::VecDeque;
 use std::io;
 use std::net::Ipv6Addr;

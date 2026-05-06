@@ -3,7 +3,7 @@ use futures::StreamExt;
 use ipv6_router_advertisement::{Event, InterfaceIndex};
 use std::net::Ipv6Addr;
 use tokio::time::Duration;
-use tracing_subscriber::{EnvFilter, fmt};
+use tracing_subscriber::{fmt, EnvFilter};
 
 pub fn init_tracing() {
     let _ = fmt()

@@ -11,9 +11,9 @@
 //! The lifecycle layer is intentionally unaware of aggregation or FSM logic.
 //! It produces semantically meaningful events that higher layers can interpret.
 
-use super::PrefixInfo;
 use super::detector::Event as DetectorEvent;
 use super::detector::{DnsDomains, DnsServers, Key};
+use super::PrefixInfo;
 use std::collections::HashMap;
 use tokio::time::Instant;
 use tracing::trace;

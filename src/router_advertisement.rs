@@ -35,7 +35,7 @@
 //! Policy is handled exclusively by higher layers.
 
 use super::Lifetime;
-use crate::{InterfaceIndex, icmpv6_socket::Icmpv6Socket};
+use crate::{icmpv6_socket::Icmpv6Socket, InterfaceIndex};
 use std::{mem, net::Ipv6Addr};
 use tokio::time::{self, Duration};
 use tracing::{debug, warn};
@@ -823,7 +823,7 @@ mod tests {
 
     #[test]
     fn test_parse_ra_options_ultimate() -> anyhow::Result<()> {
-        use tracing_subscriber::{EnvFilter, fmt};
+        use tracing_subscriber::{fmt, EnvFilter};
         let _ = fmt()
             .with_env_filter(EnvFilter::from_default_env().add_directive("trace".parse().unwrap()))
             .with_test_writer()

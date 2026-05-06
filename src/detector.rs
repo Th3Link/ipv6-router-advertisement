@@ -14,8 +14,8 @@
 //! Higher layers (lifecycle, aggregation, FSM) are responsible for
 //! interpreting and combining these events.
 
-use super::Lifetime;
 use super::router_advertisement::RouterAdvertisement;
+use super::Lifetime;
 use super::{InterfaceIndex, PrefixInfo, RouterIp};
 use std::net::Ipv6Addr;
 use tokio::time::Duration;

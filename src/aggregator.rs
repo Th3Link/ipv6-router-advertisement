@@ -14,9 +14,9 @@
 //! - No incremental diffs: if something changes, the full section is resent.
 //! - The FSM does not need to understand lifecycle events.
 
-use super::Lifetime;
 use super::detector::Key;
 use super::lifecycle::Event as LifecycleEvent;
+use super::Lifetime;
 use super::{Event, InterfaceIndex, PrefixInfo};
 use std::hash::Hash;
 use std::{
