@@ -5,22 +5,15 @@ on:
   pull_request:
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        rust:
-          - "1.78"     # MSRV
-          - "stable"   # latest stable
 
     steps:
       - uses: actions/checkout@v6
 
-      - name: Install Rust
+      - name: Install Rust (stable)
         uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: ${{ matrix.rust }}
           components: clippy, rustfmt
 
       - name: Cache cargo
@@ -31,6 +24,26 @@ jobs:
 
       - name: Clippy
         run: cargo clippy --all-features -- -D warnings
+
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        rust:
+          - "1.78"     # MSRV
+          - "stable"
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ matrix.rust }}
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
 
       - name: Build
         run: cargo build --all-features
