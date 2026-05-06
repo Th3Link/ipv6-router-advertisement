@@ -31,8 +31,9 @@ jobs:
     strategy:
       matrix:
         rust:
-          - "1.78"     # MSRV
+          - "1.82"     # MSRV
           - "stable"
+          - "nightly"
 
     steps:
       - uses: actions/checkout@v6

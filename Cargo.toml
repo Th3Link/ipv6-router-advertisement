@@ -2,7 +2,7 @@
 name = "ipv6-router-advertisement"
 version = "0.1.0"
 edition = "2021"
-rust-version = "1.78"
+rust-version = "1.82"
 license = "MIT OR Apache-2.0"
 description = "Low-level, policy-free processing of IPv6 Router Advertisements"
 repository = "https://github.com/Th3Link/ipv6-router-advertisement"
