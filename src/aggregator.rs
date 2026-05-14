@@ -18,11 +18,9 @@ use super::detector::Key;
 use super::lifecycle::Event as LifecycleEvent;
 use super::Lifetime;
 use super::{Event, InterfaceIndex, PrefixInfo};
+use core::net::Ipv6Addr;
+use std::collections::{HashMap, HashSet};
 use std::hash::Hash;
-use std::{
-    collections::{HashMap, HashSet},
-    net::Ipv6Addr,
-};
 use tracing::{debug, trace};
 
 /// Aggregated router configuration for an interface.
@@ -383,8 +381,8 @@ mod tests {
     use super::super::detector::{DnsDomains, DnsServers};
     use super::*;
     use anyhow::{Context, Result};
-    use std::net::Ipv6Addr;
-    use tokio::time::Duration;
+    use core::net::Ipv6Addr;
+    use core::time::Duration;
 
     fn if0() -> InterfaceIndex {
         InterfaceIndex::from(0u32)

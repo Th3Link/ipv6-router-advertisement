@@ -15,6 +15,8 @@ mod lifecycle;
 pub mod router_advertisement;
 
 use aggregator::Aggregator;
+use core::net::Ipv6Addr;
+use core::time::Duration;
 use detector::detect;
 use futures::StreamExt;
 use futures::{
@@ -26,10 +28,9 @@ use lifecycle::Lifecycle;
 use router_advertisement::RouterAdvertisement;
 use router_advertisement::{decode_router_advertisement, send_router_solicitation_burst};
 use std::collections::HashMap;
-use std::net::Ipv6Addr;
 use std::sync::Arc;
 use tokio::sync::mpsc;
-use tokio::time::{sleep_until, Duration, Instant};
+use tokio::time::{sleep_until, Instant};
 use tokio_stream::wrappers::ReceiverStream;
 use tracing::debug;
 
@@ -517,9 +518,8 @@ fn start_rs_burst<I: Icmpv6Socket + 'static>(
 
 #[cfg(test)]
 mod tests {
-    use detector::{DnsServers, Key};
-
     use super::*;
+    use detector::{DnsServers, Key};
 
     #[tokio::test]
     async fn stream_drop_aborts_background_task() -> anyhow::Result<()> {

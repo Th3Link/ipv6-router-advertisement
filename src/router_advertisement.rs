@@ -36,8 +36,10 @@
 
 use super::Lifetime;
 use crate::{icmpv6_socket::Icmpv6Socket, InterfaceIndex};
-use std::{mem, net::Ipv6Addr};
-use tokio::time::{self, Duration};
+use core::mem;
+use core::net::Ipv6Addr;
+use core::time::Duration;
+use tokio::time;
 use tracing::{debug, warn};
 
 /// ICMPv6 Router Advertisement type (RFC 4861)
@@ -549,9 +551,8 @@ fn parse_dnssl_domains(buf: &[u8]) -> anyhow::Result<Dnssl> {
 #[cfg(test)]
 #[allow(clippy::unwrap_used, clippy::expect_used, clippy::panic)]
 mod tests {
-    use anyhow::ensure;
-
     use super::*;
+    use anyhow::ensure;
 
     fn ra_header(flags: u8, router_lifetime: u16) -> Vec<u8> {
         let mut buf = vec![0u8; mem::size_of::<RouterAdvertisementMessage>()];

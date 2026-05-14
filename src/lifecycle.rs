@@ -19,7 +19,7 @@ use tokio::time::Instant;
 use tracing::trace;
 
 /// Absolute expiration timestamp for a lifecycle entry.
-type Expiry = tokio::time::Instant;
+type Expiry = Instant;
 
 /// Lifecycle events emitted based on detector input and expiry.
 ///
@@ -409,8 +409,9 @@ mod tests {
     use super::super::InterfaceIndex;
     use super::*;
     use anyhow::{Context, Result};
-    use std::net::Ipv6Addr;
-    use tokio::time::{Duration, Instant};
+    use core::net::Ipv6Addr;
+    use core::time::Duration;
+    use tokio::time::Instant;
 
     fn if0() -> InterfaceIndex {
         0

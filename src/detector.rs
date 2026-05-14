@@ -17,8 +17,8 @@
 use super::router_advertisement::RouterAdvertisement;
 use super::Lifetime;
 use super::{InterfaceIndex, PrefixInfo, RouterIp};
-use std::net::Ipv6Addr;
-use tokio::time::Duration;
+use core::net::Ipv6Addr;
+use core::time::Duration;
 
 /// Unique identity of a `(interface, router)` combination.
 ///
@@ -283,8 +283,8 @@ mod tests {
     use super::super::router_advertisement;
     use super::*;
     use anyhow::{Context, Result};
-    use std::net::Ipv6Addr;
-    use tokio::time::Duration;
+    use core::net::Ipv6Addr;
+    use core::time::Duration;
     fn ip(a: u16) -> Ipv6Addr {
         Ipv6Addr::new(0x2001, 0xdb8, 0, 0, 0, 0, 0, a)
     }

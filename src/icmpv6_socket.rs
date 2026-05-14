@@ -1,9 +1,10 @@
+use core::mem;
+use core::net::{Ipv6Addr, SocketAddrV6};
 use libc::{msghdr, sockaddr_in6, IPPROTO_ICMPV6, IPPROTO_IPV6, IPV6_PKTINFO};
 use socket2::{Domain, Protocol, Socket, Type};
 use std::os::fd::IntoRawFd;
 use std::{
-    io, mem,
-    net::{Ipv6Addr, SocketAddrV6},
+    io,
     os::fd::{AsRawFd, FromRawFd, OwnedFd},
 };
 use tokio::io::unix::AsyncFd;
