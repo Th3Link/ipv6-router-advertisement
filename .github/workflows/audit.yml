@@ -4,13 +4,11 @@ on:
   push:
     branches: [main]
     paths:
-      - "**/Cargo.toml"
-      - "Cargo.lock"
+      - "Cargo.toml"
       - .github/workflows/audit.yml
   pull_request:
     paths:
-      - "**/Cargo.toml"
-      - "Cargo.lock"
+      - "Cargo.toml"
       - .github/workflows/audit.yml
   schedule:
     # Catch newly published advisories against dependencies that haven't
