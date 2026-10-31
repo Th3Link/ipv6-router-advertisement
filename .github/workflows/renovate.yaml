@@ -1,0 +1,24 @@
+name: Renovate
+
+on:
+  schedule:
+    # Once a day.
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v46.3.10
+        with:
+          token: "${{ secrets.RENOVATE_TOKEN || secrets.GITHUB_TOKEN }}"
+        env:
+          # renovate.json at the repo root is auto-discovered; this just
+          # tells self-hosted Renovate which repo to scan.
+          RENOVATE_REPOSITORIES: ${{ github.repository }}

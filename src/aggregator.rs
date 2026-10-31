@@ -196,7 +196,7 @@ impl Aggregator {
                         self.prefixes.remove(&key);
                     }
                 }
-                LifecycleEvent::PrefixSoftExpiry { key: _, .. } => {}
+                LifecycleEvent::PrefixSoftExpiry { .. } => {}
             }
         }
     }
