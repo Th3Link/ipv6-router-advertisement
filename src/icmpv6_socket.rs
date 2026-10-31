@@ -125,7 +125,7 @@ impl RealIcmpv6Socket {
             let fd = socket.into_raw_fd();
             Self::set_hop_limit_255(fd)?;
             let fd = OwnedFd::from_raw_fd(fd);
-            let fd = AsyncFd::new(fd)?;
+            let fd = AsyncFd::register(fd).map_err(io::Error::from)?;
 
             Ok(Self { fd })
         }
