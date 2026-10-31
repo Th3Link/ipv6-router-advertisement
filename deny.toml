@@ -1,0 +1,13 @@
+# cargo-deny config. See https://embarkstudios.github.io/cargo-deny/
+
+[licenses]
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "Unicode-3.0",
+    "GPL-3.0-or-later",
+    "ISC",
+    "0BSD",
+    "BSD-3-Clause",
+]
+confidence-threshold = 0.8

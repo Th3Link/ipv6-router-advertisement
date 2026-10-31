@@ -5,10 +5,12 @@ on:
     branches: [main]
     paths:
       - "Cargo.toml"
+      - "deny.toml"
       - .github/workflows/audit.yml
   pull_request:
     paths:
       - "Cargo.toml"
+      - "deny.toml"
       - .github/workflows/audit.yml
   schedule:
     # Catch newly published advisories against dependencies that haven't
@@ -21,42 +23,29 @@ permissions:
   contents: read
 
 jobs:
-  # One shared Cargo.lock for all six crates, so one audit of it covers
-  # the whole workspace — running this matrixed per crate (as it used to
-  # be, back when each crate had its own lockfile) just re-audited the
-  # same resolved graph six times, and rustsec/audit-check actually
-  # expects a per-directory Cargo.lock to exist (it runs
-  # `cargo audit --file <working-directory>/Cargo.lock`), which broke
-  # outright once only the workspace root had one.
+  # This is a library, so Cargo.lock isn't committed. rustsec/audit-check
+  # runs `cargo audit --file ./Cargo.lock` and needs one, so resolve a
+  # fresh lockfile first — that's also the graph downstream users get.
   advisories:
-    name: workspace / advisories
+    name: advisories
     runs-on: ubuntu-latest
     permissions:
       checks: write
       issues: write
     steps:
       - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Generate Cargo.lock
+        run: cargo generate-lockfile
       - uses: rustsec/audit-check@v2.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          # Verify-only uses of rsa and crypto-bigint, see .cargo/audit.toml
-          # (the same list, for the case that the action doesn't read it).
-          ignore: RUSTSEC-2023-0071,RUSTSEC-2026-0387
 
-  # License compliance: this project is GPL-3.0-or-later, so every
-  # dependency's license needs to actually be compatible with that. See
-  # the root deny.toml for the allow-list — a new dependency with an
-  # unreviewed license fails this instead of silently being distributed
-  # under it.
-  #
-  # Also workspace-wide, for the same Cargo.lock reason as above — and
-  # per-crate didn't just duplicate work here, it was broken for every
-  # *-hardware crate specifically: cargo-deny's own `cargo metadata` call
-  # picks up whichever crate's rust-toolchain.toml is under its working
-  # directory, and the "esp" channel those pin isn't installed in
-  # cargo-deny-action's container.
+  # License compliance: every dependency's license needs to be on the
+  # allow-list in deny.toml — a new dependency with an unreviewed license
+  # fails this instead of silently being distributed under it.
   licenses:
-    name: workspace / licenses
+    name: licenses
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
