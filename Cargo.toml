@@ -26,4 +26,4 @@ tracing             = { version = "0.1" }
 tokio-stream        = { version = "0.1", features = ["sync"] }
 tokio               = { version = "1", features = ["full", "test-util"] }
 tracing-subscriber  = { version = "0.3", features = ["env-filter"] }
-pcap-file           = { version = "2" }
+pcap-file           = { version = "3" }
