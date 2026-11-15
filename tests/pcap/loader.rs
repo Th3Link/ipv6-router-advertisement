@@ -33,7 +33,7 @@ pub fn load_ra_frames_from_pcap<P: AsRef<Path>>(
     let mut frames = Vec::new();
 
     while let Some(block) = reader.next_block() {
-        let block = block?;
+        let (block, _state) = block?;
 
         let Block::EnhancedPacket(epb) = block else {
             continue;
